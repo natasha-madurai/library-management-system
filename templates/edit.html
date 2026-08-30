@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Book</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-content">
+
+        <div class="logo">📚</div>
+
+        <div>
+
+            <h1>Library Management System</h1>
+
+            <p>Edit book information</p>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section class="card">
+
+    <h2>✏️ Edit Book</h2>
+
+    <p>Update the details of this book.</p>
+
+
+    <form method="POST">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Book Title</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ book.title }}"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Author</label>
+
+                <input
+                    type="text"
+                    name="author"
+                    value="{{ book.author }}"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>ISBN</label>
+
+                <input
+                    type="text"
+                    name="isbn"
+                    value="{{ book.isbn }}"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <input
+                    type="text"
+                    name="category"
+                    value="{{ book.category }}">
+
+            </div>
+
+        </div>
+
+
+        <button type="submit" class="add-btn">
+
+            Update Book
+
+        </button>
+
+    </form>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    Library Management System © 2026
+
+</footer>
+
+</body>
+
+</html>

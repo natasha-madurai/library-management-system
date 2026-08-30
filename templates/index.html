@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-content">
+
+        <div class="logo">📚</div>
+
+        <div>
+            <h1>Library Management System</h1>
+            <p>Manage your library books easily</p>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+    <!-- ADD BOOK -->
+
+    <section class="card">
+
+        <h2>➕ Add New Book</h2>
+
+        <p>Add a new book to your library.</p>
+
+
+        <form action="/add" method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Book Title</label>
+
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="Enter book title"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Author</label>
+
+                    <input
+                        type="text"
+                        name="author"
+                        placeholder="Enter author name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>ISBN</label>
+
+                    <input
+                        type="text"
+                        name="isbn"
+                        placeholder="Enter ISBN"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Category</label>
+
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="e.g. Fiction, Science">
+
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="add-btn">
+
+                Add Book
+
+            </button>
+
+        </form>
+
+    </section>
+
+
+
+    <!-- BOOK LIST -->
+
+    <section class="card">
+
+
+        <div class="books-header">
+
+            <div>
+
+                <h2>📖 Available Books</h2>
+
+                <p>Books currently stored in the library</p>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <input
+                type="text"
+                id="search"
+                placeholder="🔍 Search books..."
+                onkeyup="searchBooks()">
+
+        </div>
+
+
+
+        {% if books %}
+
+
+        <div class="table-container">
+
+            <table id="booksTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Title</th>
+
+                        <th>Author</th>
+
+                        <th>ISBN</th>
+
+                        <th>Category</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for book in books %}
+
+                    <tr>
+
+                        <td>
+                            {{ book.id }}
+                        </td>
+
+
+                        <td>
+                            {{ book.title }}
+                        </td>
+
+
+                        <td>
+                            {{ book.author }}
+                        </td>
+
+
+                        <td>
+                            {{ book.isbn }}
+                        </td>
+
+
+                        <td>
+                            {{ book.category }}
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="/edit/{{ book.id }}"
+                                class="edit-btn">
+
+                                Edit
+
+                            </a>
+
+
+                            <a
+                                href="/delete/{{ book.id }}"
+                                class="delete-btn"
+                                onclick="return confirm('Are you sure you want to delete this book?');">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty">
+
+            📚 No books available.
+
+        </div>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    Library Management System © 2026
+
+</footer>
+
+
+<script>
+
+function searchBooks() {
+
+    let input = document.getElementById("search");
+
+    let filter = input.value.toLowerCase();
+
+    let table = document.getElementById("booksTable");
+
+    if (!table) {
+        return;
+    }
+
+    let rows = table.getElementsByTagName("tr");
+
+
+    for (let i = 1; i < rows.length; i++) {
+
+        let text = rows[i].innerText.toLowerCase();
+
+        if (text.includes(filter)) {
+
+            rows[i].style.display = "";
+
+        } else {
+
+            rows[i].style.display = "none";
+
+        }
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
